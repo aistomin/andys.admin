@@ -30,18 +30,15 @@ const VideoTable = () => {
             }
         }
         setIsLoading(true);
-        setTimeout(() => {
-            fetchItems();
-        }, 3000);
-        // fetchItems();
+        fetchItems();
     }, []);
 
     return (
         <>
-            {isLoading && <CircularProgress/>}
+            {isLoading && <CircularProgress data-testid="progress-spinner"/>}
             {!isLoading && fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
             {!isLoading && !fetchError && <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650}} aria-label="simple table">
+                <Table sx={{minWidth: 650}} aria-label="simple table" data-testid="videos-table">
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
