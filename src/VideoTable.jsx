@@ -20,7 +20,6 @@ const VideoTable = () => {
                     throw Error('Did not receive an expected data.');
                 }
                 const videos = await response.json();
-                console.log(videos);
                 setVideos(videos.content);
                 setFetchError(null);
             } catch (err) {
@@ -36,7 +35,7 @@ const VideoTable = () => {
     return (
         <>
             {isLoading && <CircularProgress data-testid="progress-spinner"/>}
-            {!isLoading && fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
+            {!isLoading && fetchError && <p data-testid="error-message" style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
             {!isLoading && !fetchError && <TableContainer component={Paper}>
                 <Table sx={{minWidth: 650}} aria-label="simple table" data-testid="videos-table">
                     <TableHead>
