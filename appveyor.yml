@@ -1,34 +1,20 @@
-# http://www.appveyor.com/docs/appveyor-yml
+version: "{build}"
 
-# Set build version format here instead of in the admin panel
-version: '{build}'
-
-# Do not build on gh tags
-skip_tags: true
-
-# Test against these versions of Node.js
 environment:
-  matrix:
-    - nodejs_version: 'LTS'
+  nodejs_version: "6"
 
-# Fix line endings in Windows. (runs before repo cloning)
-init:
-  - git config --global core.autocrlf input
-
-# Install scripts--runs after repo cloning
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm ci
+  - ps: Install-Product node $env:nodejs_version x64
+  - yarn
   - npm install jest --global
 
-# Disable automatic builds
-build: off
+cache:
+  - '%LOCALAPPDATA%/Yarn'
 
-# Post-install test scripts
 test_script:
-  # Output debugging info
+  - node --version
+  - npm --version
   - jest
 
-# Cache node_modules for faster builds
-cache:
-  - node_modules -> package.json
+# Don't actually build.
+build: off
